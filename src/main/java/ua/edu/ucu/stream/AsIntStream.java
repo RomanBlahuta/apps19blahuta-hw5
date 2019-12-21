@@ -170,7 +170,11 @@ public class AsIntStream implements IntStream {
     public int[] toArray() {
         AsIntStream processedStream = invokeTerminalMethod();
         int[] res = new int[processedStream.values.length];
-        System.arraycopy(processedStream.values, 0, res, 0, processedStream.values.length);
+        System.arraycopy(processedStream.values,
+                 0,
+                         res,
+                0,
+                         processedStream.values.length);
         return res;
     }
 
@@ -188,13 +192,16 @@ public class AsIntStream implements IntStream {
         AsIntStream res = (AsIntStream) AsIntStream.of(values);
         for (Object streamAction : streamActions) {
             if (streamAction instanceof IntPredicate) {
-                res = (AsIntStream) res.applyFilter((IntPredicate) streamAction);
+                res = (AsIntStream) res.applyFilter(
+                        (IntPredicate) streamAction);
             }
             else if (streamAction instanceof IntUnaryOperator) {
-                res = (AsIntStream) res.applyMap((IntUnaryOperator) streamAction);
+                res = (AsIntStream) res.applyMap(
+                        (IntUnaryOperator) streamAction);
             }
             else if (streamAction instanceof IntToIntStreamFunction) {
-                res = (AsIntStream) res.applyFlatMap((IntToIntStreamFunction) streamAction);
+                res = (AsIntStream) res.applyFlatMap(
+                        (IntToIntStreamFunction) streamAction);
             }
         }
         streamActions.clear();
